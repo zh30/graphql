@@ -5,7 +5,13 @@ const {
 
 const typeDefs = gql `
   type Query {
-    hello: Int!
+    hello: String!
+    user: User!
+  }
+
+  type User {
+    id: ID!
+    username: String!
   }
 
   type Book {
@@ -20,18 +26,29 @@ const typeDefs = gql `
   }
 
   type Books {
-    errors: [Error]
+    errors: [Error!]!
     book: Book!
   }
 
+  input UserInfo {
+    username: String!
+    password: String!
+    age: Int
+  }
+
   type Mutation {
-    books: Books!
+    books(title: String!, Author: String, id: ID): Books!
+    login(userinfo: UserInfo!): Boolean!
   }
 `;
 
 const resolvers = {
   Query: {
-    hello: () => 5
+    hello: () => 'world',
+    user: () => ({
+      username: 'zhanghe',
+      id: '23413123'
+    })
   },
   Mutation: {
     books: () => ({
