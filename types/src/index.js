@@ -4,6 +4,7 @@ const typeDefs = gql`
   type Query {
     hello(name: String): String!
     user: [User]!
+    book: Book!
   }
 
   type User {
@@ -15,6 +16,7 @@ const typeDefs = gql`
     id: ID!
     title: String!
     author: String!
+    firstLetterOfTitle: String!
   }
 
   type Error {
@@ -40,6 +42,15 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
+  Book: {
+    firstLetterOfTitle: parent => {
+      return parent.title[0].toLowerCase();
+    }
+    // title: parent => {
+    //   console.log(parent);
+    //   return parent.title;
+    // }
+  },
   Query: {
     hello: (parent, { name }, context, info) => {
       return `你好，最最辛苦的${name}!`;
@@ -53,7 +64,11 @@ const resolvers = {
         username: "zhanghe",
         id: "23413133"
       }
-    ]
+    ],
+    book: () => ({
+      id: 2,
+      title: "huahuahuahuade"
+    })
   },
   Mutation: {
     books: () => ({
