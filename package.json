@@ -1,24 +1,11 @@
 {
   "name": "graphql",
   "version": "1.0.0",
-  "description": "学习 Graphql",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://hertzzhang@github.com/hertzZhang/graphql.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hertzZhang/graphql/issues"
-  },
-  "homepage": "https://github.com/hertzZhang/graphql#readme",
+  "repository": "https://hertzzhang@github.com/hertzZhang/graphql.git",
+  "author": "张赫 <zhanghelook@outlook.com>",
+  "license": "MIT",
   "dependencies": {
-    "apollo-server": "^2.8.0",
-    "graphql": "^14.4.2"
+    "graphql-yoga": "^1.18.1"
   }
 }
