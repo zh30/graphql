@@ -1,6 +1,9 @@
 const { GraphQLScalarType } = require("graphql");
-const { ApolloServer } = require("apollo-server");
-
+const { ApolloServer } = require("apollo-server-express");
+const expressPlayground = require("graphql-playground-middleware-express")
+  .default;
+const express = require("express");
+const app = express();
 const typeDefs = `
   scalar DateTime
   enum PhotoCategory {
@@ -126,6 +129,10 @@ const server = new ApolloServer({
   resolvers
 });
 
-server
-  .listen()
-  .then(({ url }) => console.info("Graphql Server running on: ", url));
+server.applyMiddleware({ app });
+app.get("/", (req, res) => res.send("Welcome to the PhotoShare API"));
+app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
+
+app.listen({ port: 4000 }, () =>
+  console.info("Server.graphqlPath: ", server.graphqlPath)
+);
