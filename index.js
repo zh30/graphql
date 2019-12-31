@@ -3,7 +3,16 @@ const { ApolloServer } = require("apollo-server-express");
 const expressPlayground = require("graphql-playground-middleware-express")
   .default;
 const express = require("express");
+const { Client } = require("pg");
+const connectionString =
+  "postgres://zhanghe:123456@localhost:5432/zhanghe";
+const client = new Client({
+  connectionString
+});
+client.connect();
+const context = { db: client };
 const app = express();
+
 const typeDefs = `
   scalar DateTime
   enum PhotoCategory {
@@ -38,6 +47,8 @@ const typeDefs = `
   type Query {
     totalPhotos: Int!
     allPhotos: [Photo!]
+    totalUsers: Int!
+    allUsers: [User!]!
   }
   type Mutation {
     postPhoto(input: PostPhotoInput!): Photo!
@@ -84,7 +95,11 @@ let photos = [
 const resolvers = {
   Query: {
     totalPhotos: () => photos.length,
-    allPhotos: () => photos
+    allPhotos: async (parent, args, { db }) => {
+      const res = await db.query("SELECT NOW()");
+      console.info("Res: ", res);
+      return photos;
+    }
   },
   Mutation: {
     postPhoto(parent, { input }) {
@@ -126,7 +141,8 @@ const resolvers = {
 };
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context
 });
 
 server.applyMiddleware({ app });

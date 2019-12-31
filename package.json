@@ -10,7 +10,8 @@
     "express": "^4.17.1",
     "graphql": "^14.5.8",
     "graphql-playground-middleware-express": "^1.7.12",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "pg": "^7.17.0"
   },
   "scripts": {
     "start": "nodemon -e js,json,graphql"
