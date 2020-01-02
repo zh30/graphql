@@ -1,19 +1,33 @@
 {
   "name": "graphql",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.1",
   "repository": "https://hertzzhang@github.com/hertzZhang/graphql.git",
   "author": "张赫 <zhanghelook@outlook.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/graphql": "^14.5.0",
     "apollo-server-express": "^2.9.14",
+    "apollo-server-koa": "^2.9.15",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
     "graphql-playground-middleware-express": "^1.7.12",
+    "koa": "^2.11.0",
     "nodemon": "^2.0.2",
-    "pg": "^7.17.0"
+    "pg": "^7.3.0",
+    "reflect-metadata": "^0.1.10",
+    "type-graphql": "^0.17.6",
+    "typeorm": "0.2.22"
   },
   "scripts": {
-    "start": "nodemon -e js,json,graphql"
+    "start": "ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.0",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "^7.0.42",
+    "@types/koa2-cors": "^2.0.1",
+    "@types/node": "^13.1.2",
+    "ts-node": "3.3.0",
+    "typescript": "^3.7.4"
   }
 }

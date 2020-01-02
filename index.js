@@ -5,7 +5,9 @@ const expressPlayground = require("graphql-playground-middleware-express")
 const express = require("express");
 const { Client } = require("pg");
 const connectionString =
-  "postgres://zhanghe:123456@localhost:5432/zhanghe";
+  // "postgres://zhanghe:123456@localhost:5432/zhanghe";
+const connectionString =
+  "postgres://zhanghe:123456@chouchouni.com:5432/zhanghe";
 const client = new Client({
   connectionString
 });
