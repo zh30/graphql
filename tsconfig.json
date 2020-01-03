@@ -1,18 +1,21 @@
 {
-   "compilerOptions": {
-      "lib": [
-         "DOM",
-         "ES5",
-         "ES6",
-         "ESNext"
-      ],
-      "target": "es5",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-      "outDir": "./build",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "sourceMap": true
-   }
+  "compilerOptions": {
+    "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
+    "target": "es5",
+    "module": "commonjs",
+    "composite": false,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "declaration": false,
+    "esModuleInterop": true,
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "rootDir": "src"
+  },
+  "exclude": ["node_modules"],
+  "include": ["./src/**/**/*.tsx", "./src/**/**/*.ts"]
 }

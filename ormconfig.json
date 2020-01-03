@@ -1,4 +1,5 @@
 {
+   "name": "default",
    "type": "postgres",
    "host": "chouchouni.com",
    "port": 5432,
@@ -8,17 +9,17 @@
    "synchronize": true,
    "logging": false,
    "entities": [
-      "src/entity/**/*.ts"
+      "src/data/entity/**/*.ts"
    ],
    "migrations": [
-      "src/migration/**/*.ts"
+      "src/data/migration/**/*.ts"
    ],
    "subscribers": [
-      "src/subscriber/**/*.ts"
+      "src/data/subscriber/**/*.ts"
    ],
    "cli": {
-      "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
+      "entitiesDir": "src/data/entity",
+      "migrationsDir": "src/data/migration",
+      "subscribersDir": "src/data/subscriber"
    }
 }
