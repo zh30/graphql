@@ -13,8 +13,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "baseUrl": ".",
-    "rootDir": "src"
+    "jsx": "react",
+    "baseUrl": "./src",
+    "rootDir": "src",
+    "importHelpers": true
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/**/*.tsx", "./src/**/**/*.ts"]

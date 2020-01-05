@@ -1,12 +1,25 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Mutation,
+  Query,
+  Resolver,
+  FieldResolver,
+  Root
+} from "type-graphql";
 import bcrypt from "bcryptjs";
 import { User } from "../../data/entity/User";
 
-@Resolver()
+@Resolver(User)
 export default class RegisterResolver {
-  @Query(() => String)
-  async hello() {
-    return "Hi He!";
+  @Query(() => Boolean)
+  async checkUser(@Arg("id") id: number): Promise<Boolean> {
+    const user = await User.find({ where: { id } });
+    return !!user.length;
+  }
+
+  @FieldResolver()
+  async name(@Root() parent: User) {
+    return `${parent.firstName} ${parent.lastName}`;
   }
 
   @Mutation(() => User)
