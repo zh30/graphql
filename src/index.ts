@@ -2,8 +2,8 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import Express from "express";
 import { ApolloServer } from "apollo-server-express";
-import { buildSchema, Resolver, Query } from "type-graphql";
-import RegisterResolver from "./graphql/resolvers/RegisterResolver";
+import { buildSchema } from "type-graphql";
+import RegisterResolver from "./graphql/resolvers/Register/RegisterResolver";
 
 const main = async () => {
   const app = Express();

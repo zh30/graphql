@@ -7,28 +7,20 @@ import {
   Root
 } from "type-graphql";
 import bcrypt from "bcryptjs";
-import { User } from "../../data/entity/User";
+import { User } from "../../../orm/entity/User";
+import { RegisterInput } from "./RegisterInput";
 
 @Resolver(User)
 export default class RegisterResolver {
   @Query(() => Boolean)
-  async checkUser(@Arg("id") id: number): Promise<Boolean> {
-    const user = await User.find({ where: { id } });
-    return !!user.length;
-  }
-
-  @FieldResolver()
-  async name(@Root() parent: User) {
-    return `${parent.firstName} ${parent.lastName}`;
+  async checkUser(@Arg("email") email: string): Promise<Boolean> {
+    const user = await User.findOne({ where: { email } });
+    return !!user;
   }
 
   @Mutation(() => User)
   async register(
-    @Arg("firstName") firstName: string,
-    @Arg("lastName") lastName: string,
-    @Arg("email") email: string,
-    @Arg("age") age: number,
-    @Arg("password") password: string
+    @Arg("data") { firstName, lastName, email, age, password }: RegisterInput
   ): Promise<User> {
     const hashePassword = await bcrypt.hash(password, 12);
     const user = await User.create({
