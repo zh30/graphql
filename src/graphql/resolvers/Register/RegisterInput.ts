@@ -22,5 +22,6 @@ export class RegisterInput {
   age: number;
 
   @Field()
+  @Length(6, 18)
   password: string;
 }

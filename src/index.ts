@@ -4,13 +4,14 @@ import Express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import RegisterResolver from "./graphql/resolvers/Register/RegisterResolver";
+import LoginResolver from './graphql/resolvers/Login/LoginResolver';
 
-const main = async () => {
+(async () => {
   const app = Express();
   const connection = await createConnection();
   console.info("connection: ", connection.isConnected);
   const schema = await buildSchema({
-    resolvers: [RegisterResolver]
+    resolvers: [RegisterResolver, LoginResolver]
   });
 
   const apolloServer = new ApolloServer({
@@ -23,6 +24,4 @@ const main = async () => {
   app.listen({ port: 4000 }, () =>
     console.info(`🚀 Server ready at http://localhost:4000/graphql`)
   );
-};
-
-main();
+})();
