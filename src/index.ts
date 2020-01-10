@@ -3,19 +3,19 @@ import { createConnection } from "typeorm";
 import Express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import RegisterResolver from "./graphql/resolvers/Register/RegisterResolver";
-import LoginResolver from './graphql/resolvers/Login/LoginResolver';
+import UserResolver from "./graphql/resolvers/UserResolver";
 
 (async () => {
   const app = Express();
   const connection = await createConnection();
   console.info("connection: ", connection.isConnected);
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver]
+    resolvers: [UserResolver]
   });
 
   const apolloServer = new ApolloServer({
     schema,
+    context: ({ req, res }) => ({ req, res }),
     playground: true
   });
 

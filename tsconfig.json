@@ -16,7 +16,6 @@
     "sourceMap": true,
     "jsx": "react",
     "baseUrl": "./src",
-    "rootDir": "src",
     "importHelpers": true
   },
   "exclude": ["node_modules"],
