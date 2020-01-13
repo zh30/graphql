@@ -1,10 +1,17 @@
-import { Arg, Mutation, Query, Resolver, Ctx } from "type-graphql";
+import {
+  Arg,
+  Mutation,
+  Query,
+  Resolver,
+  Ctx,
+  UseMiddleware
+} from "type-graphql";
 import { hash, compare } from "bcryptjs";
 import { User } from "../../orm/entity/User";
 import { RegisterInput } from "../schemas/User/RegisterInput";
 import { LoginInput } from "../schemas/User/LoginInput";
 import ContextTypes from "../schemas/User/ContextTypes";
-import { createAccessToken } from "../schemas/User/Auth";
+import { createAccessToken, isAuth } from "../schemas/User/Auth";
 
 @Resolver(type => User)
 export default class UserResolver {
@@ -59,5 +66,11 @@ export default class UserResolver {
     });
 
     return user;
+  }
+
+  @Query(type => String)
+  @UseMiddleware(isAuth)
+  bye(@Ctx() { payload }: ContextTypes) {
+    return `your user id is: ${payload!.userId}`;
   }
 }
