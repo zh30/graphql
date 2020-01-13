@@ -12,6 +12,7 @@ import { RegisterInput } from "../schemas/User/RegisterInput";
 import { LoginInput } from "../schemas/User/LoginInput";
 import ContextTypes from "../schemas/User/ContextTypes";
 import { createAccessToken, isAuth } from "../schemas/User/Auth";
+import { SendToken } from "../schemas/User/SendToken";
 
 @Resolver(type => User)
 export default class UserResolver {
@@ -61,9 +62,7 @@ export default class UserResolver {
       throw new Error("用户名或密码错误");
     }
 
-    res.cookie("jid", createAccessToken(user), {
-      httpOnly: true
-    });
+    SendToken(res, createAccessToken(user));
 
     return user;
   }

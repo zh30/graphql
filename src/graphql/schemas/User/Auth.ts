@@ -11,10 +11,10 @@ export const createRefreshToken = (user: User): string =>
   sign({ userId: user.id }, REFRESH_TOKEN_SECRET, { expiresIn: "1d" });
 
 export const isAuth: MiddlewareFn<ContextTypes> = (
-  { context },
+  { context: { req, payload } },
   next
 ) => {
-  const authorization = context.req.headers["authorization"];
+  const authorization = req.headers["authorization"];
 
   if (!authorization) {
     throw new Error("not authenticated");
@@ -23,7 +23,7 @@ export const isAuth: MiddlewareFn<ContextTypes> = (
   try {
     const token = authorization.split(" ")[1];
     const newPayload = verify(token, ACCESS_TOKEN_SECRET!);
-    context.payload = newPayload as any;
+    payload = newPayload as any;
   } catch (error) {
     console.error("Error: ", error);
     throw new Error("not authenticated");
