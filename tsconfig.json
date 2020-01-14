@@ -15,7 +15,8 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "jsx": "react",
-    "baseUrl": "./src",
+    "baseUrl": ".",
+    "rootDir": "src",
     "importHelpers": true
   },
   "exclude": ["node_modules"],

@@ -13,6 +13,8 @@ import { LoginInput } from "../schemas/User/LoginInput";
 import ContextTypes from "../schemas/User/ContextTypes";
 import { createAccessToken, isAuth } from "../schemas/User/Auth";
 import { SendToken } from "../schemas/User/SendToken";
+import { verify } from "jsonwebtoken";
+import { ACCESS_TOKEN_SECRET } from "../../config";
 
 @Resolver(type => User)
 export default class UserResolver {
@@ -45,11 +47,11 @@ export default class UserResolver {
     return user;
   }
 
-  @Mutation(type => User)
+  @Mutation(type => User, { nullable: true })
   async login(
     @Arg("data") { email, password }: LoginInput,
     @Ctx() { res }: ContextTypes
-  ): Promise<User> {
+  ): Promise<User | null> {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
@@ -67,9 +69,32 @@ export default class UserResolver {
     return user;
   }
 
-  @Query(type => String)
-  @UseMiddleware(isAuth)
-  bye(@Ctx() { payload }: ContextTypes) {
-    return `your user id is: ${payload!.userId}`;
+  // @UseMiddleware(isAuth)
+  @Query(type => Boolean)
+  bye(@Ctx() { res }: ContextTypes) {
+    res.clearCookie("jid");
+    return true;
+  }
+
+  @Query(type => User, { nullable: true })
+  async me(
+    @Ctx() { req: { signedCookies } }: ContextTypes
+  ): Promise<User | null> {
+    const token: string = signedCookies["jid"];
+    let id: string;
+
+    if (!token) {
+      return null;
+    }
+
+    const payload = verify(token, ACCESS_TOKEN_SECRET!);
+    console.info("Payload: ", payload);
+    if (!payload) {
+      return null;
+    }
+
+    return User.findOne({
+      where: { id: "a72ebcd8-89d9-46d0-a282-006554fee536" }
+    });
   }
 }
