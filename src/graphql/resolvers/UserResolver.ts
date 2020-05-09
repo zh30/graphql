@@ -84,13 +84,13 @@ export default class UserResolver {
     let id: string;
 
     if (!token) {
-      return null;
+      throw new Error("用户未登录，请重新登录");
     }
 
     const payload = verify(token, ACCESS_TOKEN_SECRET!);
     console.info("Payload: ", payload);
     if (!payload) {
-      return null;
+      throw new Error("授权时间已到期，请重新登录");
     }
 
     return User.findOne({

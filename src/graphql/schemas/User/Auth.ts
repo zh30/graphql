@@ -8,7 +8,7 @@ export const createAccessToken = (user: User): string =>
   sign(
     { userId: user.id, tokenVersion: user.tokenVersion },
     ACCESS_TOKEN_SECRET,
-    { expiresIn: "1d" }
+    { expiresIn: "1s" }
   );
 
 export const createRefreshToken = (user: User): string =>
